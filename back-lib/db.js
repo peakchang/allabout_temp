@@ -13,7 +13,7 @@ export const sql_con = mysql.createConnection({
 
 /*
 
-CREATE DATABASE atb default CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+CREATE DATABASE allaboutphone default CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 CREATE DATABASE happy_toad default CHARACTER SET UTF8;
 CREATE DATABASE joy_shark default CHARACTER SET UTF8;

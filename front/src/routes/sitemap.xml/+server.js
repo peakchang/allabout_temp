@@ -27,32 +27,32 @@ export async function GET({ url }) {
         boardXmlStr = boardXmlStr + categoryTamplate
     }
 
-    try {
-        const getBoardListQuery = "SELECT * FROM board ORDER BY bo_id DESC";
-        const getBoardList = await sql_con.promise().query(getBoardListQuery);
-        const boardList = getBoardList[0]
+    // try {
+    //     const getBoardListQuery = "SELECT * FROM board ORDER BY bo_id DESC";
+    //     const getBoardList = await sql_con.promise().query(getBoardListQuery);
+    //     const boardList = getBoardList[0]
 
-        for (let i = 0; i < boardList.length; i++) {
-            // published_time
-            const getTimeStr = boardList[i]['bo_updated_at'] ? boardList[i]['bo_updated_at'] : boardList[i]['bo_created_at']
-            const dateStr = moment.tz(getTimeStr, 'Asia/Seoul');
-            const getDate = dateStr.format('YYYY-MM-DD');
-            // const getDate = dateStr.format('YYYY-MM-DDTHH:mm:ssZ');
+    //     for (let i = 0; i < boardList.length; i++) {
+    //         // published_time
+    //         const getTimeStr = boardList[i]['bo_updated_at'] ? boardList[i]['bo_updated_at'] : boardList[i]['bo_created_at']
+    //         const dateStr = moment.tz(getTimeStr, 'Asia/Seoul');
+    //         const getDate = dateStr.format('YYYY-MM-DD');
+    //         // const getDate = dateStr.format('YYYY-MM-DDTHH:mm:ssZ');
 
-            let template = `
-            <url>
-            <loc>${url.origin}/view/${boardList[i]['bo_id']}</loc>
-                <lastmod>${getDate}</lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>0.5</priority>
-            </url>
-            `
-            boardXmlStr = boardXmlStr + template
-        }
+    //         let template = `
+    //         <url>
+    //         <loc>${url.origin}/view/${boardList[i]['bo_id']}</loc>
+    //             <lastmod>${getDate}</lastmod>
+    //             <changefreq>monthly</changefreq>
+    //             <priority>0.5</priority>
+    //         </url>
+    //         `
+    //         boardXmlStr = boardXmlStr + template
+    //     }
 
-    } catch (error) {
+    // } catch (error) {
 
-    }
+    // }
 
     return new Response(
         `

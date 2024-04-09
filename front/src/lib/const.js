@@ -4,7 +4,7 @@
 export const category_list = [
     {link : 'health', name : '건강뉴스', type : 'img'},
     {link : 'estate', name : '기타뉴스', type : 'board'},
-    {link : 'news', name : '분양뉴스', type : 'img'},
+    {link : 'news', name : '휴대폰뉴스', type : 'img'},
 ]
 
 export const siteName = '올어바웃폰'

@@ -23,7 +23,7 @@ import { subviewRouter } from './routes/subview.js';
 
 
 // import { apiRouter } from "./routes/exapi.js"
-app.set('port', process.env.PORT || 3075);
+app.set('port', process.env.PORT || 3050);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // ESM 오류 해결을 위해 __dirname, __filename 직접 변수 작성
