@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "cross-env NODE_ENV=production PORT=3050 pm2 start server.js -i 0 --name atb_blog",
+    "start": "cross-env NODE_ENV=production PORT=3050 pm2 start server.js -i 0 --name allabout_temp",
     "dev": "nodemon server"
   },
   "keywords": [],
