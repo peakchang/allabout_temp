@@ -71,10 +71,13 @@
 			<a href="/">
 				<img src="/logo.png" alt="" />
 			</a>
-			
 		</div>
 
-		<ul class="flex justify-around items-center w-5/6 text-sm md:text-base">
+		<ul
+			class="flex justify-around items-center w-5/6 text-sm md:text-base"
+			data-sveltekit-preload-data="tap"
+			data-sveltekit-reload
+		>
 			<a href="/menu/health">
 				<li>건강뉴스</li>
 			</a>
