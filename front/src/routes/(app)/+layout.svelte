@@ -63,7 +63,32 @@
 	/>
 </svelte:head>
 
-<header>
+<div
+	class="fixed left-0 top-0 w-full suit-font border-b border-gray-400 z-50 bg-white"
+>
+	<div class="flex max-w-[896px] mx-auto p-3">
+		<div class="w-1/6 text-center flex justify-center items-center">
+			<a href="/">
+				<img src="/logo.png" alt="" />
+			</a>
+			
+		</div>
+
+		<ul class="flex justify-around items-center w-5/6 text-sm md:text-base">
+			<a href="/menu/health">
+				<li>건강뉴스</li>
+			</a>
+			<a href="/menu/estate">
+				<li>기타뉴스</li>
+			</a>
+			<a href="/menu/news">
+				<li>휴대폰뉴스</li>
+			</a>
+		</ul>
+	</div>
+</div>
+
+<!-- <header>
 	<div
 		class="mt-8 pb-4 text-4xl text-center border-b border-gray-300 title-font relative"
 		data-sveltekit-preload-data="tap"
@@ -92,7 +117,7 @@
 			</ul>
 		</nav>
 	</div>
-</header>
+</header> -->
 
 <slot />
 

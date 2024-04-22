@@ -113,7 +113,7 @@
 
 <svelte:head></svelte:head>
 
-<div class="swiper my-5 relative max_screen mx-auto" bind:this={bannerSwiper}>
+<div class="swiper mt-16 mb-5 relative max_screen mx-auto" bind:this={bannerSwiper}>
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper relative">
         {#each bannerList as banner}
