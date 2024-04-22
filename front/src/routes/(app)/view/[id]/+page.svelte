@@ -113,7 +113,7 @@
 <svelte:head>
 </svelte:head>
 
-<div class="container px-3.5 max-w-4xl mx-auto my-7 suit-font">
+<div class="px-3.5 mx-auto my-7 suit-font">
     <div class="pt-6">
         <h1 class="text-xl font-medium text-center">
             {content.bo_subject}

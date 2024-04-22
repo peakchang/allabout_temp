@@ -122,7 +122,9 @@
 	</div>
 </header> -->
 
-<slot />
+<div class="max_screen mx-auto mt-20">
+	<slot />
+</div>
 
 <div class="border-t">
 	<div
