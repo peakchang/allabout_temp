@@ -16,6 +16,8 @@
 
     import { invalidateAll } from "$app/navigation";
     import { back_api, siteName } from "$lib/const";
+    import { extractFirstImageSrc } from "$lib/lib";
+    import moment from "moment-timezone";
 
     let chkModalVal = false;
     let pwdVal;
@@ -179,23 +181,47 @@
         class="grid grid-cols-2 md:grid-cols-4 suit-font gap-1"
     >
         {#each posts as post}
-            <a href="/view/{post.bo_id}">
+            <a
+                href={post["bo_show_type"] == "view_board"
+                    ? `/view/${post.bo_id}`
+                    : `/board/${post.bo_id}`}
+            >
                 <div class="border rounded-md overflow-hidden">
                     <div
                         class="w-full h-32 overflow-hidden flex justify-center items-center"
                     >
-                        <img src={post.img_link} alt="asdfasdf" />
+                        {#if post.bo_main_img}
+                            <img src={post.bo_main_img} alt="asdfasdf" />
+                        {:else if extractFirstImageSrc(post.bo_content)}
+                            <img
+                                src={extractFirstImageSrc(post.bo_content)}
+                                alt="asdfasdf"
+                            />
+                        {:else}
+                            <img src="/no-image.png" alt="asdfasdf" />
+                        {/if}
                     </div>
 
                     <div class="p-2 flex flex-col gap-2">
                         <!-- <div class="truncate">{post.bo_subject}</div> -->
                         <div class="text-xs">
-                            {post.category} / {post.date_str}
+                            {post.category} / {moment(
+                                post.bo_created_at,
+                            ).format("YY-MM-DD HH:mm")}
                         </div>
                     </div>
                 </div>
             </a>
         {/each}
+    </div>
+
+    <div class="mt-2 suit-font">
+        <a href="/all_list">
+            <button class="border w-full p-2">
+                전체 글 보기 <i class="fa fa-plus-circle" aria-hidden="true"
+                ></i>
+            </button>
+        </a>
     </div>
 
     <!-- <div class="border rounded-md overflow-hidden">

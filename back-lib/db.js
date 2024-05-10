@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS config(
 
 INSERT INTO config (cf_base) VALUES ('base');
 
-CREATE TABLE IF NOT EXISTS board(
+CREATE TABLE IF NOT EXISTS view_board(
     bo_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     bo_category VARCHAR(255),
     bo_subject VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
@@ -33,6 +33,21 @@ CREATE TABLE IF NOT EXISTS board(
     bo_created_at DATETIME,
     bo_updated_at DATETIME
 );
+
+CREATE TABLE IF NOT EXISTS free_board(
+    bo_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    bo_show_type VARCHAR(50),
+    bo_category VARCHAR(255),
+    bo_subject VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+    bo_content TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+    bo_created_at DATETIME,
+    bo_updated_at DATETIME
+);
+
+// 여기는 추가 할것들
+ALTER TABLE view_board ADD COLUMN bo_show_type VARCHAR(50) AFTER bo_id;
+ALTER TABLE free_board ADD COLUMN bo_show_type VARCHAR(50) AFTER bo_id;
+UPDATE view_board SET bo_show_type = "view_board";
 
 CREATE TABLE IF NOT EXISTS reply(
     re_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

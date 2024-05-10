@@ -5,6 +5,7 @@
     // @ts-ignore
     import Cookies from "js-cookie";
     import { back_api, category_list } from "$lib/const";
+    import { page } from "$app/stores";
 
     let contentArr;
     let modifyVal;
@@ -16,12 +17,22 @@
     let category;
     let keyword;
     let description;
+    let allData = {};
 
-    const uploadContent = async () => {
-        if (!subject || !category) {
+    const uploadContent = async (e) => {
+        const type = e.target.value;
+        console.log(type);
+        if (!allData["bo_subject"] || !allData["bo_category"]) {
             alert("제목 or 카테고리 미선택! 선택해주세여");
             return false;
         }
+
+        const getDbObj = category_list.find(
+            (v) => v.link === allData["bo_category"],
+        );
+
+        const showType = getDbObj["db"];
+        allData["bo_show_type"] = getDbObj["db"];
 
         // 지울 목록 찾기 (에디터에 없는 항목만 배열로 남겨놓기)
         for (let i = 0; i < contentArr.length; i++) {
@@ -33,15 +44,15 @@
             }
 
             var kkk = ttt[ttt.length - 1];
-            if (content.includes(kkk)) {
+            if (allData["bo_content"].includes(kkk)) {
                 contentArr[i] = "";
             }
         }
 
         const res = await axios.post(`${back_api}/board/write`, {
-            subject,
-            category,
-            content,
+            type,
+            allData,
+            showType,
             contentArr,
         });
 
@@ -53,8 +64,8 @@
     };
 
     const getEditorContent = (e) => {
-        content = e.detail.editorContent;
-        if (!content || content == "<p><br></p>") {
+        allData["bo_content"] = e.detail.editorContent;
+        if (!allData["bo_content"] || allData["bo_content"] == "<p><br></p>") {
             workStatus = false;
         } else {
             workStatus = true;
@@ -92,17 +103,18 @@
 
 <!-- <input type="number" bind:value on:change={onChange}> -->
 <svelte:window on:keydown={onKeyDown} />
-<div class="max_screen mx-auto px-2 pb-8 mt-2">
+
+<div>
     <input
         type="text"
         class="py-2 mb-1 w-full rounded-sm border-gray-300 text-sm"
         placeholder="제목을 입력하세요"
-        bind:value={subject}
+        bind:value={allData["bo_subject"]}
     />
 
     <select
         class="py-2 mb-1 w-full rounded-sm border-gray-300 text-sm"
-        bind:value={category}
+        bind:value={allData["bo_category"]}
     >
         <option value="">선택하세요</option>
         {#each category_list as category}
@@ -112,17 +124,28 @@
 
     <Editor
         on:getEditorContent={getEditorContent}
-        {modifyVal}
+        modifyVal={allData["bo_content"]}
         bind:contentArr
         height="500px"
     />
 
     <div class="mt-3 text-center">
-        <button
-            class="bg-sky-700 py-2 px-10 rounded-lg text-white suit-font"
-            on:click={uploadContent}
-        >
-            등록하기
-        </button>
+        {#if $page.url.searchParams.get("id")}
+            <button
+                class="bg-sky-700 py-2 px-10 rounded-lg text-white suit-font"
+                value="update"
+                on:click={uploadContent}
+            >
+                등록하기
+            </button>
+        {:else}
+            <button
+                class="bg-sky-700 py-2 px-10 rounded-lg text-white suit-font"
+                value="upload"
+                on:click={uploadContent}
+            >
+                등록하기
+            </button>
+        {/if}
     </div>
 </div>

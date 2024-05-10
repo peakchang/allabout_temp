@@ -1,46 +1,56 @@
 <script>
-    import { page } from "$app/stores";
+    import axios from "axios";
+    import { onMount, tick, beforeUpdate } from "svelte";
+    import { afterNavigate, goto } from "$app/navigation";
+    import { authStatus } from "$lib/store";
+
+    import { invalidateAll } from "$app/navigation";
+    import { back_api, siteName } from "$lib/const";
+
     import { extractFirstImageSrc } from "$lib/lib";
     import moment from "moment-timezone";
-    import {
-        afterNavigate,
-        beforeNavigate,
-        invalidate,
-        invalidateAll,
-    } from "$app/navigation";
-    import { back_api, category_list, siteName } from "$src/lib/const";
 
-    // invalidate 를 사용할때에는 인자로 링크가 들어가야함
+    import { page } from "$app/stores";
 
-    export let data;
-    let category = "";
-    let postList = [];
-    const getNowPage = $page.url.pathname;
-    let nowPage = 1;
+    import Cookies from "js-cookie";
+
+    // console.log(Cookies.get("auth_status"));
+
+    let chkModalVal = false;
+    let pwdVal;
+    let postNum = 10;
+    let listStatus = true;
+    let posts = [];
+    let bannerSwiper;
+    let loading = true;
     let pageArr = [];
 
-    $: data, setData();
+    let getNowPage = 1;
 
+    export let data;
+
+    $: data, setData();
     function setData() {
-        category = data.category;
-        console.log(category);
-        postList = data.posts;
+        posts = data.posts;
         pageArr = data.pageArr;
+        console.log(pageArr);
+        if ($page.url.searchParams.get("page")) {
+            getNowPage = $page.url.searchParams.get("page");
+        }
     }
+
+    afterNavigate(() => {
+        invalidateAll();
+    });
 </script>
 
-<div class="max_screen mx-auto px-2 pb-8 mt-2">
-    <h1 class="sr-only">{siteName} - {category}</h1>
-    <div class="my-6 kbo-font text-2xl text-gray-700 text-center relative">
-        {category} 최신글 리스트
-    </div>
-
+<div class="suit-font">
     <div
         data-sveltekit-preload-data="tap"
         data-sveltekit-reload
         class="grid grid-cols-2 md:grid-cols-4 suit-font gap-1"
     >
-        {#each postList as post}
+        {#each posts as post}
             <a
                 href={post["bo_show_type"] == "view_board"
                     ? `/view/${post.bo_id}`
@@ -75,7 +85,7 @@
         {/each}
     </div>
 
-    <div class="mt-3 mb-3 suit-font">
+    <div class="mt-3 mb-3">
         <ul
             class="flex justify-center gap-1 text-sm font-semibold"
             data-sveltekit-preload-data="tap"
@@ -114,33 +124,3 @@
         </ul>
     </div>
 </div>
-
-<!-- <a href="/view/{post.bo_id}">
-    <div class="border rounded-md overflow-hidden">
-        <div
-            class="w-full h-32 overflow-hidden flex justify-center items-center"
-        >
-            <img src={post.img_link} alt="asdfasdf" />
-        </div>
-
-        <div class="p-2 flex flex-col gap-2">
-            <div class="truncate">{post.bo_subject}</div>
-            <div class="text-xs">
-                {post.category} / {post.date_str}
-            </div>
-        </div>
-    </div>
-</a> -->
-
-<style>
-    .sr-only {
-        position: absolute;
-        overflow: hidden;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        border: 0;
-        clip: rect(0, 0, 0, 0);
-    }
-</style>

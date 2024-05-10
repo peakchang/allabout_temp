@@ -78,15 +78,13 @@
 			data-sveltekit-preload-data="tap"
 			data-sveltekit-reload
 		>
-			<a href="/menu/health">
-				<li>건강뉴스</li>
-			</a>
-			<a href="/menu/estate">
-				<li>기타뉴스</li>
-			</a>
-			<a href="/menu/news">
-				<li>휴대폰뉴스</li>
-			</a>
+			{#each category_list as category}
+				<li class="cursor-pointer">
+					<a href="/menu/{category.link}">
+						{category.name}
+					</a>
+				</li>
+			{/each}
 		</ul>
 	</div>
 </div>

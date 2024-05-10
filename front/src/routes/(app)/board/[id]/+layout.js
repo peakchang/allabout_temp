@@ -25,7 +25,7 @@ export const load = async ({ params, url }) => {
     }
 
     try {
-        const res = await axios.post(`${back_api}/main/view_detail`, { id })
+        const res = await axios.post(`${back_api}/main/board_detail`, { id })
 
         content = res.data.content;
 
