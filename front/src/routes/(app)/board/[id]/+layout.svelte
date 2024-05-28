@@ -13,9 +13,7 @@
 </script>
 
 <svelte:head>
-    {#if $page.url.pathname.includes("view")}
-        <SeoMeta bind:seoValue />
-    {/if}
+    <SeoMeta bind:seoValue />
 </svelte:head>
 
 <slot />
