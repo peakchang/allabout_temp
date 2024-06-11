@@ -188,22 +188,14 @@
             >
                 <div class="border rounded-md overflow-hidden">
                     <div
-                        class="w-full h-32 overflow-hidden flex justify-center items-center"
+                        class="w-full h-32 bg-cover bg-center bg-no-repeat"
+                        style="background-image: url('{post.bo_main_img ? post.bo_main_img : extractFirstImageSrc(post.bo_content)}');"
                     >
-                        {#if post.bo_main_img}
-                            <img src={post.bo_main_img} alt="asdfasdf" />
-                        {:else if extractFirstImageSrc(post.bo_content)}
-                            <img
-                                src={extractFirstImageSrc(post.bo_content)}
-                                alt="asdfasdf"
-                            />
-                        {:else}
-                            <img src="/no-image.png" alt="asdfasdf" />
-                        {/if}
+                        
                     </div>
 
                     <div class="p-2 flex flex-col gap-2">
-                        <!-- <div class="truncate">{post.bo_subject}</div> -->
+                        <div class="truncate text-sm">{post.bo_subject}</div>
                         <div class="text-xs">
                             {post.category} / {moment(
                                 post.bo_created_at,
