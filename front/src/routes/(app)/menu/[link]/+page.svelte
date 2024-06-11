@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="p-2 flex flex-col gap-2">
-                        <!-- <div class="truncate">{post.bo_subject}</div> -->
+                        <div class="truncate text-sm">{post.bo_subject}</div>
                         <div class="text-xs">
                             {post.category} / {moment(
                                 post.bo_created_at,
